@@ -26,13 +26,10 @@ const errorContainer = document.querySelector('#textareaErrorMessage');
 const totalSentences = document.querySelector('#totalSentences');
 const excludeSpaces = document.querySelector('#excludeSpaces');
 const characterLimitButton = document.querySelector('#charLimit');
+const characterLimitInput = document.querySelector('#charLimitInput');
 const readTime = document.querySelector('#readTime');
 
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ EVENT LISTENERS
-
-// counterForm.addEventListener('submit', (e) => {
-//   e.preventDefault();
-// });
 
 textarea.addEventListener('input', () => {
   handleTextareaInput(textarea.value);
@@ -46,6 +43,20 @@ characterLimitButton.addEventListener('change', () => {
   if (!characterLimitButton.checked) {
     errorContainer.textContent = '';
     textarea.classList.remove('form-group__error');
+  } else {
+    handleTextareaInput(textarea.value);
+  }
+});
+
+characterLimitInput.addEventListener('input', () => {
+  handleTextareaInput(textarea.value);
+});
+
+characterLimitInput.addEventListener('keydown', (e) => {
+  // Remove focus from input without default 'submit' behaviour
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    characterLimitInput.blur();
   }
 });
 
@@ -79,7 +90,7 @@ function updateReadingTime(string) {
 }
 
 function characterLimitExceeded(string) {
-  const characterLimit = Number(document.querySelector('#charLimitInput').value);
+  const characterLimit = Number(characterLimitInput.value);
   const textToAnalyseLength = string.split('').length;
 
   if (!characterLimitButton.checked) {
