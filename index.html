@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png" />
+
+    <title>Frontend Mentor | Character counter</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./reset.css" />
+    <link rel="stylesheet" href="./styles.css" />
+
+    <!-- JS -->
+    <script src="./script.js" defer></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+      defer
+    ></script>
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <header>
+        <img
+          class="logo logo-light"
+          src="./assets/images/logo-light-theme.svg"
+          alt="Character Counter Logo"
+        />
+        <img
+          class="logo logo-dark"
+          src="./assets/images/logo-dark-theme.svg"
+          alt="Character Counter Logo"
+        />
+        <button id="colorThemeButton">
+          <div class="button-select-dark">
+            <img src="./assets/images/icon-moon.svg" alt="" />
+            <span class="sr-only">Select Dark Mode</span>
+          </div>
+          <div class="button-select-light">
+            <img src="./assets/images/icon-sun.svg" alt="" />
+            <span class="sr-only">Select Light Mode</span>
+          </div>
+        </button>
+      </header>
+      <main>
+        <h1>Analyze your text in real-time.</h1>
+        <!-- FORM -->
+        <form id="counterForm" action="">
+          <!-- TEXTAREA FORMGROUP -->
+          <div class="form-group">
+            <textarea
+              id="textToAnalyse"
+              name="textToAnalyse"
+              placeholder="Start typing here… (or paste your text)"
+            ></textarea>
+            <div aria-live="polite" class="error">
+              <ion-icon aria-hidden="" name="information-circle-outline"></ion-icon>
+              <p id="textareaErrorMessage"></p>
+            </div>
+          </div>
+          <!-- WHITE SPACE CHECKBOX FORMGROUP -->
+          <div class="checkbox-container">
+            <div class="form-group">
+              <label for="excludeSpaces">
+                <input id="excludeSpaces" class="sr-only" type="checkbox" name="exclWhiteSpace" />
+                Exclude Spaces
+              </label>
+            </div>
+            <!-- CHAR LIMIT CHECKBOX FORMGROUP -->
+            <div class="form-group flex-center">
+              <label for="charLimit">
+                <input id="charLimit" class="sr-only" type="checkbox" name="charLimit" />
+                Set Character Limit
+              </label>
+              <input id="charLimitInput" type="number" value="300" />
+            </div>
+            <p class="read-time">Approx. reading time: <span id="readTime"></span></p>
+          </div>
+        </form>
+
+        <div id="results">
+          <!-- COUNT RESULTS -->
+          <div id="countResults">
+            <div class="purple">
+              <!-- <img class="count-bg" src="./assets/images/pattern-character-count.svg" alt="" /> -->
+              <p id="totalChars" class="text-preset-1">00</p>
+              <p id="characterCountText" class="text-preset-3 count-result-description">
+                Total Characters<span class="excludeSpacesText"> (no spaces)</span>
+              </p>
+            </div>
+            <div class="yellow">
+              <!-- <img class="count-bg" src="./assets/images/pattern-word-count.svg" alt="" /> -->
+              <p id="totalWords" class="text-preset-1">00</p>
+              <p id="wordCountText" class="text-preset-3 count-result-description">Word Count</p>
+            </div>
+            <div class="orange">
+              <!-- <img class="count-bg" src="./assets/images/pattern-sentence-count.svg" alt="" /> -->
+              <p id="totalSentences" class="text-preset-1">00</p>
+              <p id="sentenceCountText" class="text-preset-3 count-result-description">
+                Sentence Count
+              </p>
+            </div>
+          </div>
+
+          <!-- DENSITY RESULTS -->
+          <div class="density-results-container">
+            <h2>Letter Density</h2>
+            <p id="densityResultsDefaultText">
+              No characters found. Start typing to see letter density.
+            </p>
+            <div id="densityResults"></div>
+            <!-- <button id="seeMoreDensityResultsBtn" class="text-preset-3">See more</button> -->
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <template id="densityItemTemplate">
+      <div data-density-item>
+        <p data-density-character></p>
+        <div data-density-bar-track>
+          <div data-density-bar></div>
+        </div>
+        <p data-density-frequency></p>
+      </div>
+    </template>
+  </body>
+</html>
