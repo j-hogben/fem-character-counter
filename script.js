@@ -30,9 +30,9 @@ const readTime = document.querySelector('#readTime');
 
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ EVENT LISTENERS
 
-counterForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-});
+// counterForm.addEventListener('submit', (e) => {
+//   e.preventDefault();
+// });
 
 textarea.addEventListener('input', () => {
   handleTextareaInput(textarea.value);
@@ -82,7 +82,7 @@ function characterLimitExceeded(string) {
   const characterLimit = Number(document.querySelector('#charLimitInput').value);
   const textToAnalyseLength = string.split('').length;
 
-  if (!characterLimit.checked) {
+  if (!characterLimitButton.checked) {
     errorContainer.textContent = '';
     textarea.classList.remove('form-group__error');
     return false;
