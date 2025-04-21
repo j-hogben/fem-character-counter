@@ -39,13 +39,13 @@ excludeSpaces.addEventListener('change', () => {
   if (textarea.value) updateTotalChars(textarea.value);
 });
 
-characterLimitButton.addEventListener('change', () => {
+characterLimitButton.addEventListener('click', () => {
   if (!characterLimitButton.checked) {
     errorContainer.textContent = '';
     textarea.classList.remove('form-group__error');
-  } else {
-    handleTextareaInput(textarea.value);
   }
+
+  handleTextareaInput(textarea.value);
 });
 
 characterLimitInput.addEventListener('input', () => {
@@ -65,12 +65,14 @@ characterLimitInput.addEventListener('keydown', (e) => {
 // /////////////////////////////////////////////////////////////////////////////////////////////////
 
 function handleTextareaInput(text) {
-  if (characterLimitExceeded(text) === false) {
-    updateTotalChars(text);
-    updateTotalWords(text);
-    updateTotalSentences(text);
-    updateReadingTime(text);
+  if (characterLimitButton.checked && characterLimitExceeded(text) === true) {
+    return;
   }
+
+  updateTotalChars(text);
+  updateTotalWords(text);
+  updateTotalSentences(text);
+  updateReadingTime(text);
 }
 
 function updateReadingTime(string) {
@@ -143,9 +145,19 @@ function updateTotalSentences(string) {
 const densityResults = document.querySelector('#densityResults');
 const densityItemTemplate = document.querySelector('#densityItemTemplate');
 
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ EVENT LISTENERS
+
 textarea.addEventListener('input', () => {
-  updateDensityResults(textarea.value.toUpperCase());
+  if (characterLimitExceeded(textarea.value) === false) {
+    updateDensityResults(textarea.value.toUpperCase());
+  }
 });
+
+characterLimitButton.addEventListener('click', () => {
+  if (!characterLimitButton.checked) updateDensityResults(textarea.value.toUpperCase());
+});
+
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 
 function updateDensityResults(text) {
   const densities = calculateDensityResults(text)
