@@ -268,13 +268,15 @@ textarea:focus-visible {
 }
 
 .error {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 0.5rem;
 }
 
-.error:has(#textareaErrorMessage:empty) {
-  display: none;
+/* Had to use this class and implement with Javascript, Safari wasn't liking the
+class selector '.error:has(#textareaErrorMessage:empty)' -  */
+.error__active {
+  display: flex;
 }
 
 .error {
@@ -388,9 +390,9 @@ the '(no spaces)' span in 'Total Characters'*/
 .excludeSpacesText {
   display: none;
 }
-main:has(#exclWhiteSpace:checked) .excludeSpacesText {
+/* main:has(#excludeSpaces:checked) .excludeSpacesText {
   display: inline;
-}
+} */
 
 @media (min-width: 45em) {
   #countResults {
@@ -416,10 +418,10 @@ main:has(#exclWhiteSpace:checked) .excludeSpacesText {
   display: none;
 }
 
-/* When no density results (therefore no text to analyse), show 'No charaters found' text */
-.density-results-container:not(:has(#densityResults:empty)) #densityResultsDefaultText {
+/* When no density results (therefore no text to analyse), show 'No characters found' text */
+/* .density-results-container:not(:has(#densityResults:empty)) #densityResultsDefaultText {
   display: none;
-}
+} */
 
 #densityResults > * {
   grid-column: span 3;

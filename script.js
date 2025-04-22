@@ -22,9 +22,11 @@ const counterForm = document.querySelector('#counterForm');
 const textarea = document.querySelector('#textToAnalyse');
 const totalChars = document.querySelector('#totalChars');
 const totalWords = document.querySelector('#totalWords');
-const errorContainer = document.querySelector('#textareaErrorMessage');
+const errorContainer = document.querySelector('.error');
+const errorMessage = document.querySelector('#textareaErrorMessage');
 const totalSentences = document.querySelector('#totalSentences');
 const excludeSpaces = document.querySelector('#excludeSpaces');
+const excludeSpacesLabel = document.querySelector('.excludeSpacesText');
 const characterLimitButton = document.querySelector('#charLimit');
 const characterLimitInput = document.querySelector('#charLimitInput');
 const readTime = document.querySelector('#readTime');
@@ -37,6 +39,8 @@ textarea.addEventListener('input', () => {
 
 excludeSpaces.addEventListener('change', () => {
   if (textarea.value) updateTotalChars(textarea.value);
+  // If checked, show '(no spaces)' text in totalCharacters countResult box
+  excludeSpacesLabel.style.display = excludeSpaces.checked ? 'inline' : 'none';
 });
 
 characterLimitButton.addEventListener('click', () => {
@@ -76,6 +80,8 @@ function handleTextareaInput(text) {
 }
 
 function updateReadingTime(string) {
+  if (!textarea.value.trim()) return;
+
   const words = string.split(' ').filter((el) => el !== '').length;
   const averageWordsPerMinute = 238;
   const minutes = Math.floor(words / averageWordsPerMinute);
@@ -96,17 +102,20 @@ function characterLimitExceeded(string) {
   const textToAnalyseLength = string.split('').length;
 
   if (!characterLimitButton.checked) {
-    errorContainer.textContent = '';
+    errorMessage.textContent = '';
+    errorContainer.classList.remove('error__active');
     textarea.classList.remove('form-group__error');
     return false;
   }
 
   if (textToAnalyseLength <= characterLimit) {
-    errorContainer.textContent = '';
+    errorMessage.textContent = '';
+    errorContainer.classList.remove('error__active');
     textarea.classList.remove('form-group__error');
     return false;
   } else {
-    errorContainer.textContent = `Limit reached! Your text exceeds ${characterLimit} characters`;
+    errorMessage.textContent = `Limit reached! Your text exceeds ${characterLimit} characters`;
+    errorContainer.classList.add('error__active');
     textarea.classList.add('form-group__error');
     return true;
   }
@@ -144,10 +153,13 @@ function updateTotalSentences(string) {
 
 const densityResults = document.querySelector('#densityResults');
 const densityItemTemplate = document.querySelector('#densityItemTemplate');
+const densityResultsDefaultText = document.querySelector('#densityResultsDefaultText');
 
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ EVENT LISTENERS
 
 textarea.addEventListener('input', () => {
+  densityResultsDefaultText.style.display = textarea.value.trim() ? 'none' : 'block';
+
   if (characterLimitExceeded(textarea.value) === false) {
     updateDensityResults(textarea.value.toUpperCase());
   }

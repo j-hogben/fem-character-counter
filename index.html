@@ -37,7 +37,7 @@
           src="./assets/images/logo-dark-theme.svg"
           alt="Character Counter Logo"
         />
-        <button id="colorThemeButton">
+        <button id="colorThemeButton" tabindex="0">
           <div class="button-select-dark">
             <img src="./assets/images/icon-moon.svg" alt="" />
             <span class="sr-only">Select Dark Mode</span>
@@ -68,17 +68,17 @@
           <div class="checkbox-container">
             <div class="form-group">
               <label for="excludeSpaces">
-                <input id="excludeSpaces" class="sr-only" type="checkbox" name="exclWhiteSpace" />
+                <input id="excludeSpaces" class="sr-only" type="checkbox" name="exclWhiteSpace" tabindex="0"/>
                 Exclude Spaces
               </label>
             </div>
             <!-- CHAR LIMIT CHECKBOX FORMGROUP -->
             <div class="form-group flex-center">
               <label for="charLimit">
-                <input id="charLimit" class="sr-only" type="checkbox" name="charLimit" />
+                <input id="charLimit" class="sr-only" type="checkbox" name="charLimit"  tabindex="0"/>
                 Set Character Limit
               </label>
-              <input id="charLimitInput" type="number" value="300" />
+              <input id="charLimitInput" type="number" value="300"  tabindex="0"/>
             </div>
             <p class="read-time">Approx. reading time: <span id="readTime"></span></p>
           </div>
