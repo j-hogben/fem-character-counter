@@ -285,6 +285,9 @@ class selector '.error:has(#textareaErrorMessage:empty)' -  */
 
 .checkbox-container {
   margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .checkbox-container label {
@@ -347,7 +350,7 @@ class selector '.error:has(#textareaErrorMessage:empty)' -  */
 
 @media (min-width: 45em) {
   .checkbox-container {
-    display: flex;
+    flex-direction: row;
     align-items: center;
     gap: 1.5rem;
 
@@ -371,8 +374,20 @@ class selector '.error:has(#textareaErrorMessage:empty)' -  */
 }
 
 #countResults > * {
+  position: relative;
+  overflow: hidden;
   padding: 1.75rem 1.25rem;
   border-radius: var(--br-input);
+  z-index: -2;
+}
+
+#countResults .count-bg {
+  position: absolute;
+  height: 110%;
+  left: 35%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: -1;
 }
 
 .purple {
